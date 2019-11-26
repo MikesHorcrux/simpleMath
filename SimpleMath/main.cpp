@@ -5,7 +5,7 @@
 //  Created by Mike  Van Amburg on 11/25/19.
 //  Copyright © 2019 Mike Van Amburg. All rights reserved.
 //
-
+#include <cmath>
 #include <iostream>
 #include <numeric>
 
@@ -14,7 +14,6 @@ int main(int argc, const char * argv[]) {
     
     //Varibles
     double item;
-    double tax;
     
     //taxes are init
     double taxClothingRate = 0.06;
@@ -84,7 +83,15 @@ int main(int argc, const char * argv[]) {
         std::cout << "Enter the number for the items Category: ";
         std::cin >> itemCategory;
         
-        
+        try
+        {
+            
+        }
+        catch(const char* msg) {
+            std::cout << "Enter A VALID number";
+            itemCategory = 0;  // this line makes the program start again
+        }
+
           //switch statement for users input.
           switch(itemCategory){
             case 0:
@@ -94,8 +101,6 @@ int main(int argc, const char * argv[]) {
             case 1:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  
-                  //takes users input of item cost and places it in array clothingItem
                   clothingItem[clothingItems] = item;
                   clothingItems++;
 
@@ -104,8 +109,6 @@ int main(int argc, const char * argv[]) {
             case 2:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  
-                  //takes users input of item cost and places it in array clothingItem
                   beautyItem[beautyItems] = item;
                   beautyItems++;
                   repeat = false;
@@ -113,45 +116,44 @@ int main(int argc, const char * argv[]) {
             case 3:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  
-                  //takes users input of item cost and places it in array clothingItem
-                groceryItem[groceryItems] = item;
+                  groceryItem[groceryItems] = item;
                   groceryItems++;
                   repeat = false;
                   break;
-            break;
             case 4:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                 tax = item * taxGardeningRate;
-                  std::cout << "your item plus taxes " << tax + item;
-                  std::cout << "taxes: " << tax;
+                  gardeningItem[gardeningItems] = item;
+                  gardeningItems++;
                   repeat = false;
+                  break;
             break;
             case 5:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  tax = item * taxSchoolSuppliesRate;
-                  std::cout << "your item plus taxes " << tax + item;
-                  std::cout << "taxes: " << tax;
+                  schoolItem[gardeningItems] = item;
+                  schoolItems++;
                   repeat = false;
+                  break;
             break;
             case 6:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  tax = item * taxTobaccoProductsRate;
-                  std::cout << "your item plus taxes " << tax + item;
-                  std::cout << "taxes: " << tax;
+                  tabaccoItem[tabaccoItems] = item;
+                  tabaccoItems++;
                   repeat = false;
+                  break;
             break;
             default:
                   std::cout << "Please enter a valid option";
-              repeat = false;
+                  repeat = false;
           }
     }
         //ounce repeat is false the program will stop
         while(!repeat);
-        
+  
+    
+//    calculates the total and the taxes paid
     //clothing
         std::cout << "\n";
         clothingSum = std::accumulate(clothingItem, clothingItem + clothingItems, clothingSum);
@@ -164,15 +166,34 @@ int main(int argc, const char * argv[]) {
          beautySum = std::accumulate(beautyItem, beautyItem + beautyItems, beautySum);
          taxBeauty = beautySum * taxBeautyRate;
     
-    //beauty
+    //grocery
      std::cout << "\n";
      grocerySum = std::accumulate(groceryItem, groceryItem + groceryItems, grocerySum);
      taxGrocery = grocerySum * taxGroceryRate;
+    
+    //gardening
+    std::cout << "\n";
+    gardeningSum = std::accumulate(gardeningItem, gardeningItem + gardeningItems, gardeningSum);
+    taxGardening = gardeningSum * taxGardeningRate;
+    //School
+    std::cout << "\n";
+    schoolSum = std::accumulate(schoolItem, schoolItem + schoolItems, schoolSum);
+    taxSchoolSupplies = schoolSum * taxSchoolSuppliesRate;
+    //Tabacco
+    std::cout << "\n";
+    tabaccoSum = std::accumulate(tabaccoItem, tabaccoItem + tabaccoItems, tabaccoSum);
+    taxTobaccoProducts = tabaccoSum * taxTobaccoProductsRate;
          
     
     //sum of order.
-    std::cout << "Total before tax: "<< clothingSum + beautySum  << "\n";
-    std::cout << "Total Order: "<< taxClothing + taxBeauty << "\n";
+    
+    double total = round(clothingSum + beautySum +grocerySum + gardeningSum + schoolSum + tabaccoSum);
+    double taxes = round( taxClothing + taxBeauty + taxGrocery + taxGardening + taxSchoolSupplies + taxTobaccoProducts);
+    double grandTotal = round(total + taxes);
+    std::cout << "Total before tax: "<< total  << "\n";
+    std::cout << "Taxes: "<< taxes << "\n";
+    std::cout << " Grand Total: "<< grandTotal << "\n";
+    
     
     
 
