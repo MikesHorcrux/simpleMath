@@ -40,13 +40,30 @@ int main(int argc, const char * argv[]) {
     int clothingItems = 0;
     double clothingSum = 0.00;
     
-    //clothing array
+    //beauty array
     double beautyItem[50] = {0.0}; //alocates memory
     int beautyItems = 0;
     double beautySum = 0.00;
     
+    //grocrey array
+    double groceryItem[50] = {0.0}; //alocates memory
+    int groceryItems = 0;
+    double grocerySum = 0.00;
     
+    //gardening array
+    double gardeningItem[50] = {0.0}; //alocates memory
+    int gardeningItems = 0;
+    double gardeningSum = 0.00;
     
+    //school array
+     double schoolItem[50] = {0.0}; //alocates memory
+     int schoolItems = 0;
+     double schoolSum = 0.00;
+    
+    //tabacco array
+    double tabaccoItem[50] = {0.0}; //alocates memory
+    int tabaccoItems = 0;
+    double tabaccoSum = 0.00;
     
     bool repeat;
     do {
@@ -96,10 +113,12 @@ int main(int argc, const char * argv[]) {
             case 3:
                   std::cout << "Enter the cost for the item: ";
                   std::cin >> item;
-                  tax = item * taxGroceryRate;
-                  std::cout << "your item plus taxes " << tax + item;
-                  std::cout << "taxes: " << tax;
+                  
+                  //takes users input of item cost and places it in array clothingItem
+                groceryItem[groceryItems] = item;
+                  groceryItems++;
                   repeat = false;
+                  break;
             break;
             case 4:
                   std::cout << "Enter the cost for the item: ";
@@ -143,12 +162,16 @@ int main(int argc, const char * argv[]) {
     //beauty
          std::cout << "\n";
          beautySum = std::accumulate(beautyItem, beautyItem + beautyItems, beautySum);
-        //tax is calculated at 6%
          taxBeauty = beautySum * taxBeautyRate;
+    
+    //beauty
+     std::cout << "\n";
+     grocerySum = std::accumulate(groceryItem, groceryItem + groceryItems, grocerySum);
+     taxGrocery = grocerySum * taxGroceryRate;
          
     
     //sum of order.
-    std::cout << "Total Order: "<< clothingSum + beautySum << "\n";
+    std::cout << "Total before tax: "<< clothingSum + beautySum  << "\n";
     std::cout << "Total Order: "<< taxClothing + taxBeauty << "\n";
     
     
